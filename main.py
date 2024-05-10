@@ -1,6 +1,7 @@
 import pygame
 import random
 from bed import Bed
+from enemy import Enemy
 
 # set up pygame modules
 pygame.init()
@@ -14,11 +15,14 @@ size = (800, 600)
 screen = pygame.display.set_mode(size)
 BED_START_X = 500
 
-bg = pygame.image.load("bedsprite.png")
+bed_load = pygame.image.load("bedsprite.png")
+enemy_load = pygame.image.load("goomba_sprite.png")
+
 
 
 
 bed = Bed(BED_START_X, 250)
+enemy = Enemy(505,300)
 
 
 
@@ -45,6 +49,7 @@ while run:
 
     screen.fill((0,0,0))
     screen.blit(bed.image, bed.rect)
+    screen.blit(enemy.image, enemy.rect)
     pygame.display.update()
 
     frame += 1
