@@ -1,6 +1,8 @@
 import pygame
 import random
 from bed import Bed
+from block import Block
+from mario import Mario
 from enemy import Enemy
 
 # set up pygame modules
@@ -17,13 +19,13 @@ BED_START_X = 500
 
 bed_load = pygame.image.load("bedsprite.png")
 enemy_load = pygame.image.load("goomba_sprite.png")
-
+block_load = pygame.image.load("block.png")
 
 
 
 bed = Bed(BED_START_X, 250)
 enemy = Enemy(505,300)
-
+block = Block(200,350)
 
 
 INITIAL_HOUSE_X = random.randint(0,600)
@@ -50,6 +52,7 @@ while run:
     screen.fill((0,0,0))
     screen.blit(bed.image, bed.rect)
     screen.blit(enemy.image, enemy.rect)
+    screen.blit(block.image, block.rect)
     pygame.display.update()
 
     frame += 1
