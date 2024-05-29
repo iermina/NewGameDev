@@ -48,6 +48,23 @@ while run:
     clock.tick(60)
 
     for event in pygame.event.get():  # User did something
+        if pygame.KEYDOWN:
+            direction = "right"
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_LEFT]:
+                mario.moveLeft(10)
+            if keys[pygame.K_RIGHT]:
+                mario.moveRight(10)
+            if keys[pygame.K_DOWN]:
+                mario.moveForward(10)
+            if keys[pygame.K_UP]:
+                mario.moveBack(10)
+
+            mario.update()
+            screen.fill(SURFACE_COLOR)
+            all_sprites_list.draw(screen)
+            pygame.display.flip()
+            clock.tick(60)
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
 

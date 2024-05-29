@@ -21,6 +21,6 @@ class Mario:
         # move the balloon up or down based on the direction!
         # don't let the balloon move if it's at the bottom or top of the screen
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
-    def move_direction(self, event):
-         
+        if direction = "right":
+            self.x = 50
 
