@@ -32,8 +32,8 @@ mario = Mario(100,50)
 
 INITIAL_HOUSE_X = random.randint(0,600)
 INITIAL_TREE_X = random.randint(0,600)
-house_x = INITIAL_HOUSE_X
-tree_x = INITIAL_TREE_X
+mario_x = INITIAL_HOUSE_X
+enemy_x = INITIAL_TREE_X
 
 
 # render the text for later
@@ -48,8 +48,14 @@ while run:
     clock.tick(60)
 
     for event in pygame.event.get():  # User did something
-        if pygame.KEYDOWN:
+        if pygame.K_RIGHT:
             direction = "right"
+        if pygame.K_LEFT:
+            direction = "left"
+        if pygame.K_UP:
+            direction = "up"
+        if pygame.K_DOWN:
+            direction = "down"
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:
                 mario.moveLeft(10)
@@ -57,12 +63,8 @@ while run:
                 mario.moveRight(10)
             if keys[pygame.K_DOWN]:
                 mario.moveForward(10)
-            if keys[pygame.K_UP]:
-                mario.moveBack(10)
 
-            mario.update()
-            screen.fill(SURFACE_COLOR)
-            all_sprites_list.draw(screen)
+
             pygame.display.flip()
             clock.tick(60)
         if event.type == pygame.QUIT:  # If user clicked close
