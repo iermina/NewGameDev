@@ -4,14 +4,15 @@ from bed import Bed
 from block import Block
 from mario import Mario
 from enemy import Enemy
-
+pygame.init
 # set up pygame modules
 pygame.init()
 pygame.font.init()
 my_font = pygame.font.SysFont('Arial', 20)
 pygame.display.set_caption("Game Name*")
 
-
+background_image = pygame.image.load("background.png")
+pygame.display.set_icon(background_image)
 # set up variables for the display
 size = (800, 600)
 screen = pygame.display.set_mode(size)
