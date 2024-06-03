@@ -45,9 +45,11 @@ enemy_try = False
 # Main game loop
 run = True
 clock = pygame.time.Clock()
+game_start = False
+while game_start == False:
+    pygame.display.set_caption("MENU")
 while run and current_round <= rounds:
     screen.fill((0, 0, 0))
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -95,7 +97,6 @@ while run and current_round <= rounds:
 
     # Check for collisions
     if mario.rect.colliderect(enemy.rect):
-        # Implement collision handling if necessary
         pass
     if enemy.rect.colliderect(bed.rect):
         # Enemy reached the bed
