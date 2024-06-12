@@ -6,14 +6,15 @@ from enemy import Enemy
 from weapon import Weapon
 from laser import Laser
 
-# Initialize Pygame
+# Pygame
 pygame.init()
 pygame.font.init()
 
-# Set up display
+# Set up display and colors
 size = (800, 600)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Bed Wars")
+pygame.display.set_caption("Bed Siege!")
+
 
 # Load images
 bed_load = pygame.image.load("bedsprite.png")
@@ -23,7 +24,7 @@ laser_img = pygame.image.load("laser.png")  # Laser image for weapons
 weapon_img = pygame.image.load("weapon.png")  # Example weapon image
 
 # Create objects
-bed = Bed(500, 250, bed_load)
+bed = Bed(115, 150, bed_load)
 enemy = Enemy(650, 500, enemy_load)
 mario = Mario(100, 50, mario_load)
 mario_weapon = Weapon("Blaster", weapon_img, 10, 15, laser_img)
@@ -32,11 +33,11 @@ lasers = []
 # Game variables
 game_over = False
 start_time = None
-score = 1000  # Starting health for enemy (to be set based on difficulty)
+score = 1000  # Starting health for enemy
 bed_health = 1000
 
 # Fonts
-my_font = pygame.font.SysFont('Arial', 30)
+my_font = pygame.font.SysFont('Comic Sans', 30)
 
 clock = pygame.time.Clock()
 
@@ -51,10 +52,10 @@ difficulties = {
 }
 selected_difficulty = None
 
-
+# Function for when the game is in the menu
 def game_menu():
     global state, selected_difficulty, score, bed_health, start_time
-    screen.fill((0, 0, 0))
+    screen.fill((0,0,255))
     menu_text = my_font.render("Choose Difficulty: Easy, Medium, Hard", True, (255, 255, 255))
     easy_button = my_font.render("Easy", True, (0, 255, 0))
     medium_button = my_font.render("Medium", True, (255, 255, 0))
@@ -84,10 +85,10 @@ def game_menu():
                     state = "playing"
     return True
 
-
+# Function for when the game is still going on
 def game_play():
     global score, game_over, state, bed_health
-    screen.fill((0, 0, 0))
+    screen.fill((234, 0, 255))
     current_time = (pygame.time.get_ticks() - start_time) / 1000
 
     for event in pygame.event.get():
@@ -100,7 +101,7 @@ def game_play():
                 if laser:
                     lasers.append(laser)
 
-    # Handle Mario movement
+    # Mario movement
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         mario.move("left")
@@ -111,12 +112,17 @@ def game_play():
     if keys[pygame.K_DOWN]:
         mario.move("down")
 
-    # Enemy logic
+    if mario.rect.colliderect(enemy.rect): #if mario and enemy collide
+        state = "game_over"
+
+        game_over = True
+
+    # Enemy
     enemy.move_randomly()
     if random.randint(1, 60) == 1:  # Random shooting by enemy more frequent
         lasers.append(enemy.shoot_randomly(laser_img))
 
-    # Update and draw lasers
+    # Draw lasers
     for laser in lasers[:]:
         laser.move()
         if laser.rect.y < 0 or laser.rect.y > 600 or laser.rect.x < 0 or laser.rect.x > 800:
@@ -157,7 +163,7 @@ def game_play():
 
     return True
 
-
+# Function for when the game ends
 def game_over_screen():
     screen.fill((0, 0, 0))
     if game_over:

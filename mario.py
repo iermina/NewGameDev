@@ -1,7 +1,4 @@
 import pygame
-
-
-
 class Mario:
     def __init__(self, x, y, image):
         self.x = x
